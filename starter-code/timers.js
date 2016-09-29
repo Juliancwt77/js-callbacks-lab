@@ -1,68 +1,42 @@
 document.addEventListener('DOMContentLoaded', init)
 
-function init() {
+function init () {
+  var startClick = document.getElementById('start')
+  var pauseClick = document.getElementById('pause')
+  var resetClick = document.getElementById('reset')
+  var timerText = document.getElementById('timer')
+
+  var interval = 0;
 
   var count = 0;
 
-function timerId() {
-
-    window.setInterval(startButton,1000);
-
-}
 
 
-  function startButton() {
-
-    document.getElementById("timer").textContent = " Time elapsed: " + count;
-    count++;
-
+  function timerId () {
+    interval = setInterval(updateTime, 1000)
   }
 
 
-  document.getElementById("start").addEventListener("click", function() {
-
-    startButton();
-    timerId();
-
-  });
-
-
-
-  function resetButton() {
-
-
-
-    document.getElementById("timer").textContent = "Stop Watch";
-
-    window.clearInterval(timerId);
+  function pause () {
+    clearInterval(interval)
   }
 
-document.getElementById("reset").addEventListener("click", function() {
+  function updateTime () {
+    timerText.textContent = ' Time elapsed: ' + count
+    count++
+  }
 
-     resetButton();
-     window.clearInterval(startButton);
+  function resetButton () {
+    count = 0
+    pause()
+    timerText.textContent = 'Stop Watch'
+  }
 
+  startClick.addEventListener('click', timerId)
 
-});
+  resetClick.addEventListener('click', resetButton)
 
-  function pauseButton() {
-
-    ocument.getElementById("reset").addEventListener("click", function() {
-
-
-    window.clearInterval(startButton);
-
-  });
-
-}
-
-
-
-
-
-
-
-
+  pauseClick.addEventListener('click', pause)
 }
 
 init()
